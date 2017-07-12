@@ -1,3 +1,15 @@
+/*
+ * ============================================================================
+ * Copyright (C) 2017 Kaltura Inc.
+ * 
+ * Licensed under the AGPLv3 license, unless a different license for a
+ * particular library is specified in the applicable library path.
+ * 
+ * You may obtain a copy of the License at
+ * https://www.gnu.org/licenses/agpl-3.0.html
+ * ============================================================================
+ */
+
 package com.kaltura.playkit.mediaproviders.mock;
 
 import android.content.Context;
@@ -132,7 +144,7 @@ public class MockMediaProvider implements MediaEntryProvider {
     }
 
 
-    class Loader extends CallableLoader {
+    class Loader extends CallableLoader<Void> {
 
         ErrorElement error = null;
         PKMediaEntry mediaEntry = null;
@@ -143,7 +155,7 @@ public class MockMediaProvider implements MediaEntryProvider {
 
 
         @Override
-        protected void load() throws InterruptedException {
+        protected Void load() throws InterruptedException {
             //parse Json input to MediaEntry
             try {
                 mediaEntry = inputJson != null ? getFromJson(inputJson) : getFromFile();
@@ -178,6 +190,7 @@ public class MockMediaProvider implements MediaEntryProvider {
                     }
                 });
             }
+            return null;
         }
 
         @Override

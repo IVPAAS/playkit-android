@@ -1,3 +1,15 @@
+/*
+ * ============================================================================
+ * Copyright (C) 2017 Kaltura Inc.
+ * 
+ * Licensed under the AGPLv3 license, unless a different license for a
+ * particular library is specified in the applicable library path.
+ * 
+ * You may obtain a copy of the License at
+ * https://www.gnu.org/licenses/agpl-3.0.html
+ * ============================================================================
+ */
+
 package com.kaltura.playkit;
 
 import android.os.Parcel;
@@ -17,7 +29,7 @@ public class PKMediaSource implements Parcelable {
     protected PKMediaSource(Parcel in) {
         id = in.readString();
         url = in.readString();
-        mediaFormat = Utils.byValue(PKMediaFormat.class, in.readString());//mediaFormat = PKMediaFormat.valueOf(in.readString());
+        mediaFormat = Utils.byValue(PKMediaFormat.class, in.readString());
         drmData = in.createTypedArrayList(PKDrmParams.CREATOR);
     }
 
@@ -60,6 +72,7 @@ public class PKMediaSource implements Parcelable {
         return this;
     }
 
+
     public boolean hasDrmParams() {
         return (drmData != null && drmData.size() > 0);
     }
@@ -79,7 +92,6 @@ public class PKMediaSource implements Parcelable {
         } else {
             dest.writeTypedList(Collections.EMPTY_LIST);
         }
-
     }
 
     public static final Creator<PKMediaSource> CREATOR = new Creator<PKMediaSource>() {

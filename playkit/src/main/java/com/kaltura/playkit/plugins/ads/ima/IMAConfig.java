@@ -1,3 +1,15 @@
+/*
+ * ============================================================================
+ * Copyright (C) 2017 Kaltura Inc.
+ * 
+ * Licensed under the AGPLv3 license, unless a different license for a
+ * particular library is specified in the applicable library path.
+ * 
+ * You may obtain a copy of the License at
+ * https://www.gnu.org/licenses/agpl-3.0.html
+ * ============================================================================
+ */
+
 package com.kaltura.playkit.plugins.ads.ima;
 
 import com.google.gson.Gson;
@@ -30,7 +42,7 @@ public class IMAConfig {
     public static final String AD_ATTRIBUTION_UIELEMENT = "adAttribution";
     public static final String AD_COUNTDOWN_UIELEMENT   = "adCountDown";
     public static final String AD_LOAD_TIMEOUT          = "adLoadTimeOut";
-
+    public static final String AD_ENABLE_DEBUG_MODE     = "enableDebugMode";
 
     private String language;
     private String adTagURL;
@@ -39,6 +51,7 @@ public class IMAConfig {
     private int videoBitrate; // in KB
     private boolean adAttribution;
     private boolean adCountDown;
+    private boolean enableDebugMode;
     private int  adLoadTimeOut;
     private List<String> videoMimeTypes;
     //private Map<Double,String> tagsTimes; // <AdTime,URL_to_execute>
@@ -53,6 +66,7 @@ public class IMAConfig {
         this.adAttribution            = true;
         this.adCountDown              = true;
         this.adLoadTimeOut            = DEFAULT_AD_LOAD_TIMEOUT;
+        this.enableDebugMode          = false;
         this.videoMimeTypes           = new ArrayList<>();
         this.videoMimeTypes.add(PKMediaFormat.mp4.mimeType);
         this.adTagURL = null;         //=> must be set via setter
@@ -160,6 +174,15 @@ public class IMAConfig {
         return this;
     }
 
+    public IMAConfig enableDebugMode(boolean enableDebugMode) {
+        this.enableDebugMode = enableDebugMode;
+        return this;
+    }
+
+    public boolean isDebugMode() {
+        return enableDebugMode;
+    }
+
     //    public Map<Double, String> getTagsTimes() {
 //        return tagsTimes;
 //    }
@@ -187,6 +210,7 @@ public class IMAConfig {
         jsonObject.addProperty(AD_ATTRIBUTION_UIELEMENT, adAttribution);
         jsonObject.addProperty(AD_COUNTDOWN_UIELEMENT, adCountDown);
         jsonObject.addProperty(AD_LOAD_TIMEOUT, adLoadTimeOut);
+        jsonObject.addProperty(AD_ENABLE_DEBUG_MODE, enableDebugMode);
 
         Gson gson = new Gson();
         JsonArray jArray = new JsonArray();
@@ -210,4 +234,5 @@ public class IMAConfig {
         return jsonObject;
     }
 }
+
 

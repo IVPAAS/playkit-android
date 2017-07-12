@@ -1,3 +1,15 @@
+/*
+ * ============================================================================
+ * Copyright (C) 2017 Kaltura Inc.
+ * 
+ * Licensed under the AGPLv3 license, unless a different license for a
+ * particular library is specified in the applicable library path.
+ * 
+ * You may obtain a copy of the License at
+ * https://www.gnu.org/licenses/agpl-3.0.html
+ * ============================================================================
+ */
+
 package com.kaltura.playkit;
 
 import android.net.Uri;
@@ -11,8 +23,7 @@ public enum PKMediaFormat {
     wvm("video/wvm", "wvm"),
     mp4("video/mp4", "mp4"),
     mp3("audio/mpeg", "mp3"),
-    unknown(null, null),
-    ;
+    unknown(null, null);
 
     public final String mimeType;
     public final String pathExt;

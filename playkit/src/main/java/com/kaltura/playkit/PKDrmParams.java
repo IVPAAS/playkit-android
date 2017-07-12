@@ -1,3 +1,15 @@
+/*
+ * ============================================================================
+ * Copyright (C) 2017 Kaltura Inc.
+ * 
+ * Licensed under the AGPLv3 license, unless a different license for a
+ * particular library is specified in the applicable library path.
+ * 
+ * You may obtain a copy of the License at
+ * https://www.gnu.org/licenses/agpl-3.0.html
+ * ============================================================================
+ */
+
 package com.kaltura.playkit;
 
 import android.os.Parcel;
@@ -52,11 +64,6 @@ public class PKDrmParams implements Parcelable {
         this.scheme = scheme;
     }
 
-    protected PKDrmParams(Parcel in) {
-        licenseUri = in.readString();
-        scheme = Utils.byValue(Scheme.class, in.readString(), Scheme.Unknown);//Scheme.valueOf(in.readString());
-    }
-
     public boolean isSchemeSupported() {
         boolean isSchemeSupported = (scheme != null && scheme.isSupported());
         return isSchemeSupported;
@@ -78,18 +85,6 @@ public class PKDrmParams implements Parcelable {
         this.scheme = scheme;
     }
 
-    public static final Creator<PKDrmParams> CREATOR = new Creator<PKDrmParams>() {
-        @Override
-        public PKDrmParams createFromParcel(Parcel in) {
-            return new PKDrmParams(in);
-        }
-
-        @Override
-        public PKDrmParams[] newArray(int size) {
-            return new PKDrmParams[size];
-        }
-    };
-
     @Override
     public int describeContents() {
         return 0;
@@ -97,7 +92,25 @@ public class PKDrmParams implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(licenseUri);
-        dest.writeString(scheme.name());
+        dest.writeString(this.licenseUri);
+        dest.writeInt(this.scheme == null ? -1 : this.scheme.ordinal());
     }
+
+    protected PKDrmParams(Parcel in) {
+        this.licenseUri = in.readString();
+        int tmpScheme = in.readInt();
+        this.scheme = tmpScheme == -1 ? Scheme.Unknown : Scheme.values()[tmpScheme];
+    }
+
+    public static final Creator<PKDrmParams> CREATOR = new Creator<PKDrmParams>() {
+        @Override
+        public PKDrmParams createFromParcel(Parcel source) {
+            return new PKDrmParams(source);
+        }
+
+        @Override
+        public PKDrmParams[] newArray(int size) {
+            return new PKDrmParams[size];
+        }
+    };
 }

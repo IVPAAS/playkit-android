@@ -1,3 +1,15 @@
+/*
+ * ============================================================================
+ * Copyright (C) 2017 Kaltura Inc.
+ * 
+ * Licensed under the AGPLv3 license, unless a different license for a
+ * particular library is specified in the applicable library path.
+ * 
+ * You may obtain a copy of the License at
+ * https://www.gnu.org/licenses/agpl-3.0.html
+ * ============================================================================
+ */
+
 package com.kaltura.playkit.mediaproviders.ovp;
 
 import android.support.annotation.NonNull;
@@ -360,6 +372,7 @@ public class KalturaOvpMediaProvider extends BEMediaProvider {
 
             return mediaEntry.setId(entry.getId()).setSources(sources)
                     .setDuration(entry.getMsDuration()).setMetadata(metadata)
+                    .setName(entry.getName())
                     .setMediaType(MediaTypeConverter.toMediaEntryType(entry.getType()));
         }
 
@@ -540,9 +553,6 @@ public class KalturaOvpMediaProvider extends BEMediaProvider {
         }
 
     }
-
-
-
 
 
     public static class MediaTypeConverter {

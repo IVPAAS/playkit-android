@@ -1,3 +1,15 @@
+/*
+ * ============================================================================
+ * Copyright (C) 2017 Kaltura Inc.
+ * 
+ * Licensed under the AGPLv3 license, unless a different license for a
+ * particular library is specified in the applicable library path.
+ * 
+ * You may obtain a copy of the License at
+ * https://www.gnu.org/licenses/agpl-3.0.html
+ * ============================================================================
+ */
+
 package com.kaltura.playkit;
 
 import android.support.annotation.NonNull;
@@ -19,7 +31,7 @@ public interface Player {
         /**
          * Set the Player's contentRequestAdapter.
          * @param contentRequestAdapter - request adapter.
-         * @return Player Settings.
+         * @return - Player Settings.
          */
         Settings setContentRequestAdapter(PKRequestParams.Adapter contentRequestAdapter);
 
@@ -30,9 +42,20 @@ public interface Player {
          * In order to disable/enable it again, you should update that value once again.
          * Otherwise it will stay in the previous state.
          * @param cea608CaptionsEnabled - should cea-608 track should be enabled.
-         * @return Player Settings.
+         * @return - Player Settings.
          */
         Settings setCea608CaptionsEnabled(boolean cea608CaptionsEnabled);
+
+        /**
+         * Decide if player should use {@link android.view.TextureView} as primary surface
+         * to render the video content. If set to false, will use the {@link android.view.SurfaceView} instead.
+         * Note!!! Use this carefully, because {@link android.view.TextureView} is more expensive and not DRM
+         * protected. But it allows dynamic animations/scaling e.t.c on the player. By default it will be always set
+         * to false.
+         * @param useTextureView - true if should use {@link android.view.TextureView}.
+         * @return - Player Settings.
+         */
+        Settings useTextureView(boolean useTextureView);
     }
 
     /**

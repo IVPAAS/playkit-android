@@ -10,8 +10,6 @@ import com.kaltura.playkit.Player;
 import com.kaltura.playkit.ads.AdController;
 import com.kaltura.playkit.player.PlayerView;
 
-import java.util.UUID;
-
 /**
  * Created by zivilan on 11/12/2016.
  */
@@ -32,6 +30,11 @@ public class MockPlayer implements Player {
 
             @Override
             public Settings setCea608CaptionsEnabled(boolean cea608CaptionsEnabled) {
+                return this;
+            }
+
+            @Override
+            public Settings useTextureView(boolean useTextureView) {
                 return this;
             }
         };
@@ -148,7 +151,7 @@ public class MockPlayer implements Player {
     }
 
     @Override
-    public UUID getSessionId() {
+    public String getSessionId() {
         return null;
     }
 

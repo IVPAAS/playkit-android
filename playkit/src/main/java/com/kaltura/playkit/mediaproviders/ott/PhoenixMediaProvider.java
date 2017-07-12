@@ -1,3 +1,15 @@
+/*
+ * ============================================================================
+ * Copyright (C) 2017 Kaltura Inc.
+ * 
+ * Licensed under the AGPLv3 license, unless a different license for a
+ * particular library is specified in the applicable library path.
+ * 
+ * You may obtain a copy of the License at
+ * https://www.gnu.org/licenses/agpl-3.0.html
+ * ============================================================================
+ */
+
 package com.kaltura.playkit.mediaproviders.ott;
 
 import android.net.Uri;
@@ -15,6 +27,7 @@ import com.kaltura.netkit.utils.Accessories;
 import com.kaltura.netkit.utils.ErrorElement;
 import com.kaltura.netkit.utils.OnRequestCompletion;
 import com.kaltura.netkit.utils.SessionProvider;
+import com.kaltura.playkit.BEResponseListener;
 import com.kaltura.playkit.PKDrmParams;
 import com.kaltura.playkit.PKLog;
 import com.kaltura.playkit.PKMediaEntry;
@@ -74,6 +87,7 @@ public class PhoenixMediaProvider extends BEMediaProvider {
 
     private MediaAsset mediaAsset;
 
+    private BEResponseListener responseListener;
 
     private class MediaAsset {
 
@@ -193,6 +207,10 @@ public class PhoenixMediaProvider extends BEMediaProvider {
         return this;
     }
 
+    public PhoenixMediaProvider setResponseListener(BEResponseListener responseListener) {
+        this.responseListener = responseListener;
+        return this;
+    }
 
     /**
      * OPTIONAL
@@ -343,6 +361,10 @@ public class PhoenixMediaProvider extends BEMediaProvider {
                 return;
             }
 
+            if(responseListener != null){
+                responseListener.onResponse(response);
+            }
+
             if (response != null && response.isSuccess()) {
                 KalturaMediaAsset asset = null;
 
@@ -418,6 +440,7 @@ public class PhoenixMediaProvider extends BEMediaProvider {
 
             PKMediaEntry mediaEntry = new PKMediaEntry();
             mediaEntry.setId("" + assetId);
+            mediaEntry.setName(null);
 
             // until the response will be delivered in the right order:
             playbackSourcesSort(sourcesFilter, playbackSources);
@@ -524,4 +547,5 @@ public class PhoenixMediaProvider extends BEMediaProvider {
         public static final String Https = "https";     // only https sources
         public static final String All = "all";         // do not filter by protocol
     }
+
 }
