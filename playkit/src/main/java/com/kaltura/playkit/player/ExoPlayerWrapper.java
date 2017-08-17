@@ -329,8 +329,9 @@ class ExoPlayerWrapper implements PlayerEngine, ExoPlayer.EventListener, Metadat
         log.d("onTimelineChanged");
         sendDistinctEvent(PlayerEvent.Type.LOADED_METADATA);
         sendDistinctEvent(PlayerEvent.Type.DURATION_CHANGE);
-        shouldResetPlayerPosition = timeline != null && !timeline.isEmpty() && window != null
-                && !timeline.getWindow(timeline.getWindowCount() - 1, window).isDynamic;
+        shouldResetPlayerPosition = true;
+                //timeline != null && !timeline.isEmpty() && window != null
+                //&& !timeline.getWindow(timeline.getWindowCount() - 1, window).isDynamic;
     }
 
     @Override
